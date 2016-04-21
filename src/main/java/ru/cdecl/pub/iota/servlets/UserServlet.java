@@ -24,8 +24,12 @@ public class UserServlet extends JsonApiServlet {
     @Inject
     AccountService accountService;
 
+    public UserServlet(AccountService accountServer) {
+        this.accountService = accountServer;
+    }
+
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final JSONWriter jsonWriter = getJsonWriterForHttpResponse(resp);
         jsonWriter.object();
 
@@ -43,6 +47,7 @@ public class UserServlet extends JsonApiServlet {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
 
+        resp.getWriter().println("Win!");
         jsonWriter.endObject();
     }
 
